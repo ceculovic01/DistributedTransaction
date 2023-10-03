@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: student-management-service
+  output:
+    ansi:
+      enabled: always
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/studentManagementDB"
+    username: "student"
+    password: "student"
+    driver-class-name: org.postgresql.Driver
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+server:
+  port: 8082
+  servlet:
+    context-path: "/api"
+logging:
+  level:
+    root: info

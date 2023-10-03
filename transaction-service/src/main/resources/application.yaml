@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: transaction-service
+  output:
+    ansi:
+      enabled: always
+  data:
+    mongodb:
+      auto-index-creation: true
+      uri: mongodb://student:student@localhost:27017/distributed_transaction?authSource=admin
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+server:
+  port: 8084
+  servlet:
+    context-path: "/api"
+logging:
+  level:
+    root: info
+
+custom:
+  rabbitmq:
+    exchange: "txn-exchange"

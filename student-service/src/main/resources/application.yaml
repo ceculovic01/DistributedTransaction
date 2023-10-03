@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: student-service
+  output:
+    ansi:
+      enabled: always
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/studentDB"
+    username: "student"
+    password: "student"
+    driver-class-name: org.postgresql.Driver
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+server:
+  port: 8083
+  servlet:
+    context-path: "/api"
+logging:
+  level:
+    root: info
+services:
+  group:
+    name: "group-service"
+    add-student-url: "http://localhost:8081/api/groups/student"
+  management:
+    name: "student-management-service"
+    add-student-url: "http://localhost:8082/api/student-year/student"
+  student:
+    add-student-url: "http://localhost:8083/api/student/transaction"
+  coordinator:
+    url: "http://localhost:8084/api/transaction"
