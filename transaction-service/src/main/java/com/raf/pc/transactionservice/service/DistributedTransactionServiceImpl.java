@@ -130,13 +130,15 @@ public class DistributedTransactionServiceImpl implements DistributedTransaction
                 addRollbackInformation(e, distributedTransaction, p.getName());
             }
         }
-        distributedTransaction = repository.save(distributedTransaction);
 
         if (serviceNames.isEmpty()) {
             distributedTransaction.setTransactionStatus(TransactionStatus.ROLLBACKED);
             distributedTransaction.setEnded(LocalDateTime.now());
+            repository.save(distributedTransaction);
             return;
         }
+
+        distributedTransaction = repository.save(distributedTransaction);
 
         TransactionMessage status = isPrepared ? TransactionMessage.TO_COMMIT : TransactionMessage.TO_ROLLBACK;
         rabbitTemplate.convertAndSend(new TransactionMessageDto(distributedTransaction.getTransactionUUID(), status, serviceNames));
